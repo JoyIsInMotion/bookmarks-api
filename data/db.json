@@ -1,0 +1,110 @@
+{
+  "users": [
+    {
+      "id": "user-1",
+      "email": "alice@example.com",
+      "password": "548be071db145b0bcd58f5a0b3fb3c6b1e4f76617a04d9206fc3b60e3791692400e2d713fb404f20be2d4dc0a91cf1ca9b5172a15cde9a7917695ec2398930b4"
+    },
+    {
+      "id": "user-2",
+      "email": "bob@example.com",
+      "password": "548be071db145b0bcd58f5a0b3fb3c6b1e4f76617a04d9206fc3b60e3791692400e2d713fb404f20be2d4dc0a91cf1ca9b5172a15cde9a7917695ec2398930b4"
+    },
+    {
+      "id": "user-3",
+      "email": "charlie@example.com",
+      "password": "548be071db145b0bcd58f5a0b3fb3c6b1e4f76617a04d9206fc3b60e3791692400e2d713fb404f20be2d4dc0a91cf1ca9b5172a15cde9a7917695ec2398930b4"
+    },
+    {
+      "id": "user-1777826153827",
+      "email": "user@example.com",
+      "password": "002738e6729c0acae945434014d23501e040aa863b4c8db1d7d7055d36d3783b75703036092cc97f21a4d2d235a79a430692ad8aa7e3e014b68882d6cd1c657f"
+    }
+  ],
+  "bookmarks": [
+    {
+      "id": "bm-1",
+      "userId": "user-1",
+      "url": "https://github.com",
+      "description": "GitHub - Where the world builds software",
+      "createdAt": "2026-05-03T10:30:15.234Z"
+    },
+    {
+      "id": "bm-2",
+      "userId": "user-1",
+      "url": "https://stackoverflow.com",
+      "description": "Stack Overflow - Q&A for developers",
+      "createdAt": "2026-05-02T14:45:42.567Z"
+    },
+    {
+      "id": "bm-3",
+      "userId": "user-1",
+      "url": "https://developers.facebook.com/docs/instagram-platform",
+      "description": "what an interesting thing to read",
+      "createdAt": "2026-05-01T09:20:18.890Z"
+    },
+    {
+      "id": "bm-5",
+      "userId": "user-1",
+      "url": "https://developer.mozilla.org",
+      "description": "MDN Web Docs - Resources for developers",
+      "createdAt": "2026-04-29T16:30:21.789Z"
+    },
+    {
+      "id": "bm-6",
+      "userId": "user-1",
+      "url": "https://nodejs.org",
+      "description": "Node.js - JavaScript runtime",
+      "createdAt": "2026-04-28T13:45:05.123Z"
+    },
+    {
+      "id": "bm-7",
+      "userId": "user-2",
+      "url": "https://react.dev",
+      "description": "React - A JavaScript library for building UIs",
+      "createdAt": "2026-05-03T12:00:44.678Z"
+    },
+    {
+      "id": "bm-8",
+      "userId": "user-2",
+      "url": "https://tailwindcss.com",
+      "description": "Tailwind CSS - Utility-first CSS framework",
+      "createdAt": "2026-05-02T08:30:12.345Z"
+    },
+    {
+      "id": "bm-9",
+      "userId": "user-2",
+      "url": "https://vercel.com",
+      "description": "Vercel - Platform for Frontend Developers",
+      "createdAt": "2026-05-01T15:20:56.789Z"
+    },
+    {
+      "id": "bm-10",
+      "userId": "user-2",
+      "url": "https://www.postgresql.org",
+      "description": "PostgreSQL - Advanced Open Source Database",
+      "createdAt": "2026-04-30T10:45:23.234Z"
+    },
+    {
+      "id": "bm-11",
+      "userId": "user-3",
+      "url": "https://docker.com",
+      "description": "Docker - Containerization platform",
+      "createdAt": "2026-05-03T14:30:38.567Z"
+    },
+    {
+      "id": "bm-12",
+      "userId": "user-3",
+      "url": "https://kubernetes.io",
+      "description": "Kubernetes - Container orchestration",
+      "createdAt": "2026-05-02T11:00:19.890Z"
+    },
+    {
+      "id": "bm-1777827154574",
+      "userId": "user-1",
+      "url": "https://example.com",
+      "description": "Optional description",
+      "createdAt": "2026-05-03T16:52:34.574Z"
+    }
+  ]
+}

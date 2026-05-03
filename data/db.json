@@ -19,16 +19,14 @@
       "id": "user-1777826153827",
       "email": "user@example.com",
       "password": "002738e6729c0acae945434014d23501e040aa863b4c8db1d7d7055d36d3783b75703036092cc97f21a4d2d235a79a430692ad8aa7e3e014b68882d6cd1c657f"
+    },
+    {
+      "id": "user-1777835454852",
+      "email": "alice@exampl1e.com",
+      "password": "548be071db145b0bcd58f5a0b3fb3c6b1e4f76617a04d9206fc3b60e3791692400e2d713fb404f20be2d4dc0a91cf1ca9b5172a15cde9a7917695ec2398930b4"
     }
   ],
   "bookmarks": [
-    {
-      "id": "bm-1",
-      "userId": "user-1",
-      "url": "https://github.com",
-      "description": "GitHub - Where the world builds software",
-      "createdAt": "2026-05-03T10:30:15.234Z"
-    },
     {
       "id": "bm-2",
       "userId": "user-1",
@@ -100,11 +98,18 @@
       "createdAt": "2026-05-02T11:00:19.890Z"
     },
     {
-      "id": "bm-1777827154574",
+      "id": "bm-1777835424894",
       "userId": "user-1",
-      "url": "https://example.com",
-      "description": "Optional description",
-      "createdAt": "2026-05-03T16:52:34.574Z"
+      "url": "https://docs.github.com/en/copilot/how-tos/troubleshoot-copilot/troubleshoot-common-issues#error-youve-hit-a-rate-limit",
+      "description": "Rate limits for GitHub tokens",
+      "createdAt": "2026-05-03T19:10:24.894Z"
+    },
+    {
+      "id": "bm-1777835483649",
+      "userId": "user-1777835454852",
+      "url": "https://eur.shein.com/Women-Clothing-c-2030.html?entranceType=sbc&adp=427464941&fromPageType=home&src_module=all&src_identifier=on%3DCATEGORY_RECOMMEND_COMPONENT%60cn%3DCATEGORY_RECOMMEND_COMPONENT_1%60hz%3D-%60jc%3Dreal_2030%60ps%3D2_1_1&src_tab_page_id=page_home1777833244867&ici=CCCSN%3Dall_ON%3DCATEGORY_RECOMMEND_COMPONENT_OI%3D105043807_CN%3DCATEGORY_RECOMMEND_PLACEHOLDER_TI%3D50001_aod%3D0_PS%3D2-1_1_ABT%3D0",
+      "description": "sdfsf",
+      "createdAt": "2026-05-03T19:11:23.649Z"
     }
   ]
 }

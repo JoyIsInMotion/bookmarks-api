@@ -22,6 +22,9 @@ export function writeDatabase(db: Database): void {
     writeFileSync(DB_PATH, JSON.stringify(db, null, 2), 'utf-8');
   } catch (error) {
     console.error('Error writing database:', error);
-    throw error;
+    // Writing to the filesystem may fail in serverless environments (readonly).
+    // Log the error but do not throw so that endpoints can still respond.
+    // Note: data will not persist in this case; migrate to a proper DB for production.
+    return;
   }
 }

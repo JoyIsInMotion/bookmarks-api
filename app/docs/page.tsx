@@ -38,6 +38,9 @@ export default function DocsPage() {
           <div>
             <div className="text-[11px] uppercase tracking-[0.32em] text-black/45">API docs</div>
             <h1 className="text-2xl font-semibold text-black">Bookmarks API reference</h1>
+            <p className="mt-1 text-sm leading-6 text-black/60">
+              The routes below reflect the current Next.js API handlers, including the admin-only endpoints and the actual JSON response shapes.
+            </p>
           </div>
           <div className="flex flex-wrap gap-3 text-sm">
             <Link
@@ -53,13 +56,13 @@ export default function DocsPage() {
           <Section
             title="Auth"
             endpoint="POST /api/auth/register | POST /api/auth/login | GET /api/auth/me | POST /api/auth/logout"
-            copy="Register or log in to receive a JWT token, then send it as a Bearer token for authenticated requests."
+            copy="Register or log in to receive a JWT token plus userId and isAdmin. Send the token as a Bearer header for authenticated requests such as /api/auth/me and all bookmark routes."
             accent="bg-emerald-100 text-emerald-900"
           />
           <Section
             title="Bookmarks"
             endpoint="GET /api/bookmarks?page=1 | POST /api/bookmarks | GET /api/bookmarks/[id] | PUT /api/bookmarks/[id] | DELETE /api/bookmarks/[id]"
-            copy="Bookmark endpoints are protected and return only the current user's data. Pagination defaults to 5 items per page."
+            copy="Bookmark endpoints are protected and return only the current user's data. List responses include data and pagination, and the page size defaults to 5 items."
             accent="bg-amber-100 text-amber-900"
           />
         </section>
@@ -87,6 +90,16 @@ export default function DocsPage() {
 }`}
                 />
               </div>
+              <div>
+                <div className="mb-2 text-sm font-medium text-black/70">Create admin bookmark</div>
+                <CodeBlock
+                  code={`{
+  "userId": "user-1",
+  "url": "https://example.com",
+  "description": "Optional note"
+}`}
+                />
+              </div>
             </div>
           </div>
 
@@ -104,10 +117,33 @@ export default function DocsPage() {
 }`}
               />
             </div>
-            <p className="mt-4 text-sm leading-6 text-black/65">
-              The client keeps the token in browser storage so refreshes stay signed in until you sign out or the token expires.
-            </p>
+            <div className="mt-4 space-y-3 text-sm leading-6 text-black/65">
+              <p>
+                <span className="font-medium text-black/80">GET /api/bookmarks</span> returns {`{ data, pagination }`} with
+                <span className="font-medium text-black/80"> page</span>, <span className="font-medium text-black/80">pageSize</span>, <span className="font-medium text-black/80">total</span>, <span className="font-medium text-black/80">totalPages</span>,
+                <span className="font-medium text-black/80"> hasNextPage</span>, and <span className="font-medium text-black/80">hasPreviousPage</span>.
+              </p>
+              <p>
+                <span className="font-medium text-black/80">GET /api/auth/me</span> expects an <span className="font-medium text-black/80">Authorization: Bearer &lt;token&gt;</span> header and returns
+                <span className="font-medium text-black/80"> userId</span>, <span className="font-medium text-black/80">email</span>, and <span className="font-medium text-black/80">isAdmin</span>.
+              </p>
+            </div>
           </div>
+        </section>
+
+        <section className="grid gap-4 lg:grid-cols-2">
+          <Section
+            title="Admin"
+            endpoint="GET /api/admin/bookmarks?page=1 | POST /api/admin/bookmarks | GET /api/admin/bookmarks/[id] | PUT /api/admin/bookmarks/[id] | DELETE /api/admin/bookmarks/[id]"
+            copy="Admin routes require an admin JWT. List and item responses include userEmail, and create/update requests can reassign bookmarks to a user by userId."
+            accent="bg-sky-100 text-sky-900"
+          />
+          <Section
+            title="Auth notes"
+            endpoint="Bearer token required for protected routes"
+            copy="POST /api/auth/logout responds with { message: 'Logout successful' }. Missing or invalid tokens return 401 responses from protected handlers."
+            accent="bg-rose-100 text-rose-900"
+          />
         </section>
       </div>
     </main>

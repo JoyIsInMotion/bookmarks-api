@@ -25,6 +25,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       userId: payload.userId,
       email: payload.email,
+      isAdmin: payload.isAdmin,
     });
   } catch (error) {
     console.error('Me endpoint error:', error);

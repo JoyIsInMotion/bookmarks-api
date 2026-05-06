@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import type { Bookmark } from '@/lib/types';
 
 type Session = {
   userId: string;
   email: string;
+  isAdmin: boolean;
 };
 
 type Pagination = {
@@ -33,6 +34,14 @@ const emptyForm = {
   url: '',
   description: '',
 };
+
+function getHostname(url: string) {
+  try {
+    return new URL(url).hostname.replace(/^www\./i, '');
+  } catch {
+    return url;
+  }
+}
 
 function formatTimestamp(value: string) {
   return new Intl.DateTimeFormat('en', {
@@ -78,6 +87,7 @@ export default function BookmarksClient() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [form, setForm] = useState(emptyForm);
+  const formSectionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const storedToken = window.localStorage.getItem(STORAGE_KEY);
@@ -190,6 +200,7 @@ export default function BookmarksClient() {
       const nextSession = {
         userId: data.userId as string,
         email: trimmedEmail,
+        isAdmin: Boolean(data.isAdmin),
       };
 
       window.localStorage.setItem(STORAGE_KEY, nextToken);
@@ -239,6 +250,15 @@ export default function BookmarksClient() {
     });
     setBookmarkMessage('Editing bookmark.');
     setBookmarkError(null);
+    // Scroll the edit form into view and focus the first control
+    setTimeout(() => {
+      const el = formSectionRef.current;
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const first = el.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('input, textarea, select');
+        first?.focus();
+      }
+    }, 50);
   }
 
   function cancelEdit() {
@@ -375,6 +395,14 @@ export default function BookmarksClient() {
             >
               API docs
             </Link>
+            {session?.isAdmin ? (
+              <Link
+                href="/admin"
+                className="rounded-full border border-black/12 px-4 py-2 font-medium text-black transition hover:border-black hover:bg-black hover:text-white"
+              >
+                Admin Panel
+              </Link>
+            ) : null}
             {showingSession ? (
               <button
                 onClick={() => void handleLogout()}
@@ -509,15 +537,15 @@ export default function BookmarksClient() {
           </section>
         ) : (
           <section className="flex-1 py-8">
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <Stat label="Signed in as" value={sessionEmail} />
               <Stat label="Bookmarks" value={String(pagination.total)} />
               <Stat label="Current page" value={String(pagination.page)} />
               <Stat label="Visible now" value={String(currentCount)} />
             </div>
 
-            <div className="mt-6 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-              <section className="rounded-[32px] border border-black/10 bg-white/80 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.12)] backdrop-blur">
+            <div className="mt-6 grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)] xl:items-start">
+              <section ref={formSectionRef} className="rounded-[32px] border border-black/10 bg-white/85 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.10)] backdrop-blur xl:sticky xl:top-6">
                 <div className="mb-6 flex items-start justify-between gap-4">
                   <div>
                     <div className="text-[11px] uppercase tracking-[0.32em] text-black/45">
@@ -536,6 +564,10 @@ export default function BookmarksClient() {
                       Cancel
                     </button>
                   ) : null}
+                </div>
+
+                <div className="mb-4 rounded-2xl border border-black/8 bg-[#fcfbf7] px-4 py-3 text-sm text-black/60">
+                  {editingId ? 'You are editing an existing bookmark. Save changes or cancel to return to the list.' : 'Add a bookmark URL and an optional note.'}
                 </div>
 
                 <form onSubmit={handleBookmarkSubmit} className="space-y-4">
@@ -582,7 +614,7 @@ export default function BookmarksClient() {
                 </form>
               </section>
 
-              <section className="rounded-[32px] border border-black/10 bg-white/80 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.12)] backdrop-blur">
+              <section className="min-w-0 rounded-[32px] border border-black/10 bg-white/85 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.10)] backdrop-blur">
                 <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
                   <div>
                     <div className="text-[11px] uppercase tracking-[0.32em] text-black/45">Library</div>
@@ -609,29 +641,32 @@ export default function BookmarksClient() {
                     {bookmarks.map((bookmark) => (
                       <article
                         key={bookmark.id}
-                        className="rounded-[24px] border border-black/10 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.05)]"
+                        className="overflow-hidden rounded-[28px] border border-black/10 bg-white p-5 shadow-[0_10px_30px_rgba(15,23,42,0.05)]"
                       >
-                        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                           <div className="min-w-0 flex-1">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <div className="rounded-full border border-black/10 bg-black/5 px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-black/55">
+                                {getHostname(bookmark.url)}
+                              </div>
+                              <span className="text-xs uppercase tracking-[0.2em] text-black/35">
+                                Saved {formatTimestamp(bookmark.createdAt)}
+                              </span>
+                            </div>
                             <a
                               href={bookmark.url}
                               target="_blank"
                               rel="noreferrer"
-                              className="block truncate text-base font-semibold text-black transition hover:underline"
+                              className="mt-3 block break-words text-base font-semibold leading-7 text-black transition hover:underline"
                             >
                               {bookmark.url}
                             </a>
-                            {bookmark.description ? (
-                              <p className="mt-2 text-sm leading-6 text-black/65">{bookmark.description}</p>
-                            ) : (
-                              <p className="mt-2 text-sm text-black/35">No description added.</p>
-                            )}
-                            <div className="mt-3 text-xs uppercase tracking-[0.2em] text-black/35">
-                              Saved {formatTimestamp(bookmark.createdAt)}
+                            <div className="mt-3 text-sm leading-6 text-black/65">
+                              {bookmark.description ? bookmark.description : 'No description added.'}
                             </div>
                           </div>
 
-                          <div className="flex shrink-0 gap-2">
+                          <div className="flex shrink-0 gap-2 md:flex-col md:items-end lg:flex-row lg:items-start bookmark-actions">
                             <button
                               type="button"
                               onClick={() => beginEdit(bookmark)}
@@ -654,7 +689,7 @@ export default function BookmarksClient() {
                   </div>
                 )}
 
-                <div className="mt-6 flex items-center justify-between gap-3">
+                <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
                   <button
                     type="button"
                     onClick={() => void loadBookmarks(token as string, Math.max(1, page - 1))}

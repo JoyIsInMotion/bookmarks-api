@@ -7,10 +7,12 @@ A minimalistic REST API for managing bookmarks built with **Next.js**, **TypeScr
 - ✅ User authentication (register, login, logout, me endpoint)
 - ✅ JWT-based protected endpoints
 - ✅ User-specific bookmark CRUD operations
+- ✅ Admin management for bookmarks and users
 - ✅ Pagination support (5 items per page)
 - ✅ JSON file-based storage
 - ✅ Password encryption (PBKDF2)
 - ✅ User isolation (each user can only access their own bookmarks)
+- ✅ Built-in API docs at `/docs`
 - ✅ Sample data with multiple users and bookmarks
 
 ## Quick Start
@@ -50,20 +52,35 @@ All test users have the password: `password`
 
 ### Authentication
 
-- `POST /api/auth/register` - Create a new user account
-- `POST /api/auth/login` - Login and receive JWT token
-- `GET /api/auth/me` - Get current user (requires auth)
+- `POST /api/auth/register` - Create a new user account and receive `token`, `userId`, and `isAdmin`
+- `POST /api/auth/login` - Login and receive `token`, `userId`, and `isAdmin`
+- `GET /api/auth/me` - Get current user details (requires `Authorization: Bearer <token>`)
 - `POST /api/auth/logout` - Logout
 
 ### Bookmarks (Protected)
 
 All bookmark endpoints require a valid JWT token in the `Authorization` header: `Bearer <token>`
 
-- `GET /api/bookmarks?page=1` - List paginated bookmarks
-- `POST /api/bookmarks` - Create a new bookmark
-- `GET /api/bookmarks/[id]` - Get a specific bookmark
-- `PUT /api/bookmarks/[id]` - Update a bookmark
+- `GET /api/bookmarks?page=1` - List paginated bookmarks for the current user
+- `POST /api/bookmarks` - Create a new bookmark with `url` and optional `description`
+- `GET /api/bookmarks/[id]` - Get a specific bookmark owned by the current user
+- `PUT /api/bookmarks/[id]` - Update a bookmark; `url` is required
 - `DELETE /api/bookmarks/[id]` - Delete a bookmark
+
+### Admin (Protected)
+
+Admin endpoints require an admin JWT in the `Authorization` header: `Bearer <token>`
+
+- `GET /api/admin/bookmarks?page=1` - List all bookmarks with `userEmail`
+- `POST /api/admin/bookmarks` - Create a bookmark for any user with `userId`, `url`, and optional `description`
+- `GET /api/admin/bookmarks/[id]` - Get any bookmark with `userEmail`
+- `PUT /api/admin/bookmarks/[id]` - Update a bookmark and optionally reassign `userId`
+- `DELETE /api/admin/bookmarks/[id]` - Delete any bookmark
+- `GET /api/admin/users` - List users
+- `POST /api/admin/users` - Create a user account
+- `GET /api/admin/users/[id]` - Get a specific user
+- `PUT /api/admin/users/[id]` - Update email, password, or admin status
+- `DELETE /api/admin/users/[id]` - Delete a user and their bookmarks
 
 ## Data Structure
 
@@ -72,7 +89,8 @@ All bookmark endpoints require a valid JWT token in the `Authorization` header: 
 {
   "id": "user-1",
   "email": "user@example.com",
-  "password": "encrypted-hash"
+  "password": "encrypted-hash",
+  "isAdmin": false
 }
 ```
 
@@ -116,7 +134,8 @@ Response:
 {
   "message": "Login successful",
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "userId": "user-1"
+  "userId": "user-1",
+  "isAdmin": false
 }
 ```
 
@@ -202,7 +221,18 @@ bookmarks-api/
 │   │   └── bookmarks/
 │   │       ├── route.ts (GET, POST)
 │   │       └── [id]/route.ts (GET, PUT, DELETE)
+│   │   └── admin/
+│   │       ├── bookmarks/route.ts
+│   │       ├── bookmarks/[id]/route.ts
+│   │       ├── users/route.ts
+│   │       └── users/[id]/route.ts
 │   ├── page.tsx (Home with API documentation)
+│   ├── docs/page.tsx (API docs page)
+│   └── admin/
+│       ├── page.tsx
+│       ├── admin-shell.tsx
+│       ├── bookmarks/page.tsx
+│       └── users/page.tsx
 │   ├── layout.tsx
 │   └── globals.css
 ├── lib/
@@ -232,6 +262,7 @@ bookmarks-api/
 - JWT tokens expire after 7 days
 - All timestamps use ISO 8601 format
 - Pagination limit is 5 items per page
+- Admin sessions are derived from the JWT `isAdmin` claim and the user record
 - User data is isolated; each user can only access their own bookmarks
 
 ## License

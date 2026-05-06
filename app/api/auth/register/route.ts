@@ -30,14 +30,15 @@ export async function POST(req: NextRequest) {
       id: userId,
       email,
       password: hashedPassword,
+      isAdmin: false,
     });
 
     writeDatabase(db);
 
-    const token = await generateToken({ userId, email });
+    const token = await generateToken({ userId, email, isAdmin: false });
 
     return NextResponse.json(
-      { message: 'Registration successful', token, userId },
+      { message: 'Registration successful', token, userId, isAdmin: false },
       { status: 201 }
     );
   } catch (error) {

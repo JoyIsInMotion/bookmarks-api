@@ -2,6 +2,7 @@ export interface User {
   id: string;
   email: string;
   password: string;
+  isAdmin: boolean;
 }
 
 export interface Bookmark {
@@ -20,4 +21,5 @@ export interface Database {
 export interface JWTPayload extends Record<string, unknown> {
   userId: string;
   email: string;
+  isAdmin: boolean;
 }

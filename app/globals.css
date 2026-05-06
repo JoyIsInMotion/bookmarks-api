@@ -34,3 +34,50 @@ body {
   min-height: 100%;
   margin: 0;
 }
+
+/* Ensure interactive buttons show a pointer cursor unless disabled */
+button:not(:disabled),
+input[type="button"]:not(:disabled),
+input[type="submit"]:not(:disabled),
+input[type="reset"]:not(:disabled),
+[role="button"]:not(:disabled) {
+  cursor: pointer;
+}
+
+/* Improve touch targets and consistency for rounded buttons */
+button[class*="rounded-full"],
+button[class*="rounded-2xl"],
+input[type="button"].rounded-full,
+input[type="submit"].rounded-full {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 40px;
+  min-width: 40px;
+  padding: 0.5rem 0.75rem;
+}
+
+/* Action containers: make buttons wrap and align nicely on small screens */
+.bookmark-actions,
+.admin-actions {
+  gap: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .bookmark-actions,
+  .admin-actions {
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+}
+
+/* Improve focus visibility */
+button:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus {
+  outline: 3px solid rgba(0,0,0,0.06);
+  outline-offset: 3px;
+}

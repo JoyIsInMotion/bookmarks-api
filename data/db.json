@@ -3,37 +3,47 @@
     {
       "id": "user-1",
       "email": "alice@example.com",
-      "password": "548be071db145b0bcd58f5a0b3fb3c6b1e4f76617a04d9206fc3b60e3791692400e2d713fb404f20be2d4dc0a91cf1ca9b5172a15cde9a7917695ec2398930b4"
-    },
-    {
-      "id": "user-2",
-      "email": "bob@example.com",
-      "password": "548be071db145b0bcd58f5a0b3fb3c6b1e4f76617a04d9206fc3b60e3791692400e2d713fb404f20be2d4dc0a91cf1ca9b5172a15cde9a7917695ec2398930b4"
+      "password": "548be071db145b0bcd58f5a0b3fb3c6b1e4f76617a04d9206fc3b60e3791692400e2d713fb404f20be2d4dc0a91cf1ca9b5172a15cde9a7917695ec2398930b4",
+      "isAdmin": true
     },
     {
       "id": "user-3",
       "email": "charlie@example.com",
-      "password": "548be071db145b0bcd58f5a0b3fb3c6b1e4f76617a04d9206fc3b60e3791692400e2d713fb404f20be2d4dc0a91cf1ca9b5172a15cde9a7917695ec2398930b4"
+      "password": "548be071db145b0bcd58f5a0b3fb3c6b1e4f76617a04d9206fc3b60e3791692400e2d713fb404f20be2d4dc0a91cf1ca9b5172a15cde9a7917695ec2398930b4",
+      "isAdmin": false
     },
     {
       "id": "user-1777826153827",
       "email": "user@example.com",
-      "password": "002738e6729c0acae945434014d23501e040aa863b4c8db1d7d7055d36d3783b75703036092cc97f21a4d2d235a79a430692ad8aa7e3e014b68882d6cd1c657f"
+      "password": "002738e6729c0acae945434014d23501e040aa863b4c8db1d7d7055d36d3783b75703036092cc97f21a4d2d235a79a430692ad8aa7e3e014b68882d6cd1c657f",
+      "isAdmin": false
     },
     {
       "id": "user-1777835454852",
       "email": "alice@exampl1e.com",
-      "password": "548be071db145b0bcd58f5a0b3fb3c6b1e4f76617a04d9206fc3b60e3791692400e2d713fb404f20be2d4dc0a91cf1ca9b5172a15cde9a7917695ec2398930b4"
+      "password": "548be071db145b0bcd58f5a0b3fb3c6b1e4f76617a04d9206fc3b60e3791692400e2d713fb404f20be2d4dc0a91cf1ca9b5172a15cde9a7917695ec2398930b4",
+      "isAdmin": false
+    },
+    {
+      "id": "user-1777837519030",
+      "email": "tanya_ispaniq@abv.bg",
+      "password": "ea77989c356365ea7cae61a3422c05ead5167a871b7536102a1c11fb94c9afb6c9b8c16ba50edc2c1c231672cb6fcdd29ae18acbebeb48e73f7ebbebce1eec90",
+      "isAdmin": true
+    },
+    {
+      "id": "user-1777893920387",
+      "email": "gosho@goshev.bg",
+      "password": "ea77989c356365ea7cae61a3422c05ead5167a871b7536102a1c11fb94c9afb6c9b8c16ba50edc2c1c231672cb6fcdd29ae18acbebeb48e73f7ebbebce1eec90",
+      "isAdmin": false
+    },
+    {
+      "id": "user-1777959757621",
+      "email": "user@useradmin.com",
+      "password": "ea77989c356365ea7cae61a3422c05ead5167a871b7536102a1c11fb94c9afb6c9b8c16ba50edc2c1c231672cb6fcdd29ae18acbebeb48e73f7ebbebce1eec90",
+      "isAdmin": true
     }
   ],
   "bookmarks": [
-    {
-      "id": "bm-2",
-      "userId": "user-1",
-      "url": "https://stackoverflow.com",
-      "description": "Stack Overflow - Q&A for developers",
-      "createdAt": "2026-05-02T14:45:42.567Z"
-    },
     {
       "id": "bm-3",
       "userId": "user-1",
@@ -54,34 +64,6 @@
       "url": "https://nodejs.org",
       "description": "Node.js - JavaScript runtime",
       "createdAt": "2026-04-28T13:45:05.123Z"
-    },
-    {
-      "id": "bm-7",
-      "userId": "user-2",
-      "url": "https://react.dev",
-      "description": "React - A JavaScript library for building UIs",
-      "createdAt": "2026-05-03T12:00:44.678Z"
-    },
-    {
-      "id": "bm-8",
-      "userId": "user-2",
-      "url": "https://tailwindcss.com",
-      "description": "Tailwind CSS - Utility-first CSS framework",
-      "createdAt": "2026-05-02T08:30:12.345Z"
-    },
-    {
-      "id": "bm-9",
-      "userId": "user-2",
-      "url": "https://vercel.com",
-      "description": "Vercel - Platform for Frontend Developers",
-      "createdAt": "2026-05-01T15:20:56.789Z"
-    },
-    {
-      "id": "bm-10",
-      "userId": "user-2",
-      "url": "https://www.postgresql.org",
-      "description": "PostgreSQL - Advanced Open Source Database",
-      "createdAt": "2026-04-30T10:45:23.234Z"
     },
     {
       "id": "bm-11",
@@ -108,8 +90,42 @@
       "id": "bm-1777835483649",
       "userId": "user-1777835454852",
       "url": "https://eur.shein.com/Women-Clothing-c-2030.html?entranceType=sbc&adp=427464941&fromPageType=home&src_module=all&src_identifier=on%3DCATEGORY_RECOMMEND_COMPONENT%60cn%3DCATEGORY_RECOMMEND_COMPONENT_1%60hz%3D-%60jc%3Dreal_2030%60ps%3D2_1_1&src_tab_page_id=page_home1777833244867&ici=CCCSN%3Dall_ON%3DCATEGORY_RECOMMEND_COMPONENT_OI%3D105043807_CN%3DCATEGORY_RECOMMEND_PLACEHOLDER_TI%3D50001_aod%3D0_PS%3D2-1_1_ABT%3D0",
-      "description": "sdfsf",
+      "description": "shein link",
       "createdAt": "2026-05-03T19:11:23.649Z"
+    },
+    {
+      "id": "bm-1777837429762",
+      "userId": "user-1777835454852",
+      "url": "https://softuni.bg/trainings/5324/full-stack-apps-with-ai-march-2026#lesson-106014",
+      "description": "softuni-training",
+      "createdAt": "2026-05-03T19:43:49.762Z"
+    },
+    {
+      "id": "bm-1777837439514",
+      "userId": "user-1777835454852",
+      "url": "https://personalizirai.bg/personaliziran-halat-za-banya-tya-i-toy",
+      "description": "halat",
+      "createdAt": "2026-05-03T19:43:59.514Z"
+    },
+    {
+      "id": "bm-1777893705260",
+      "userId": "user-1777837519030",
+      "url": "https://www.youtube.com/",
+      "description": "youtube",
+      "createdAt": "2026-05-04T11:21:45.260Z"
+    },
+    {
+      "id": "bm-1777894013469",
+      "userId": "user-1777893920387",
+      "url": "https://www.sciencefocus.com/science/fun-facts",
+      "description": "science facts!",
+      "createdAt": "2026-05-04T11:26:53.469Z"
+    },
+    {
+      "id": "bm-1777894059701",
+      "userId": "user-1777893920387",
+      "url": "https://dsfdsfs",
+      "createdAt": "2026-05-04T11:27:39.701Z"
     }
   ]
 }

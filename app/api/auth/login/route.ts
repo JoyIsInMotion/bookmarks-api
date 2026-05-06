@@ -24,10 +24,14 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const token = await generateToken({ userId: user.id, email: user.email });
+    const token = await generateToken({
+      userId: user.id,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
 
     return NextResponse.json(
-      { message: 'Login successful', token, userId: user.id },
+      { message: 'Login successful', token, userId: user.id, isAdmin: user.isAdmin },
       { status: 200 }
     );
   } catch (error) {
